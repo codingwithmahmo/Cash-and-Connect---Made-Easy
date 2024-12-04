@@ -1,31 +1,11 @@
 import pyttsx3
-import sqlite3
+import speech_recognition
 
 class BankingSystem:
     def __init__(self):
         self.engine = pyttsx3.init()
-        self.db_connection = sqlite3.connect("banking_system.db")  # Connect to SQLite database
-        self.cursor = self.db_connection.cursor()
-        self.setup_database()
-
-    def setup_database(self):
-        """Initialize the database and populate it with admin credentials."""
-        # Create adminDetails table
-        self.cursor.execute("""
-        CREATE TABLE IF NOT EXISTS adminDetails (
-            username TEXT PRIMARY KEY,
-            password TEXT
-        );
-        """)
-        # Insert admin credentials (if not already present)
-        self.cursor.executemany("""
-        INSERT OR IGNORE INTO adminDetails (username, password) VALUES (?, ?);
-        """, [
-            ('mahmood', 'khan'),
-            ('mehboob', 'rasheed'),
-            ('uzair', 'baig')
-        ])
-        self.db_connection.commit()
+        self.admin_credentials = {"admin": "password123"}  # Example admin credentials
+        self.users = {}  # Dictionary to store customer credentials
 
     def speak(self, text):
         """Voice output for the program."""
@@ -51,15 +31,12 @@ class BankingSystem:
 
     def get_user_choice(self):
         """Prompts the user to choose an operation."""
-        print("Let us start with the program implementation now!")
-        self.speak("Let us start with the program implementation now!")
         self.speak("Which operation would you like to initiate?")
         menu = ("\n1 - Admin Panel\n"
                 "2 - Customer Panel\n"
                 "3 - Exit System Panel")
         print(menu)
-        print("Enter 1 for Admin Panel,\n 2 for Customer Panel,\n or 3 to Exit.")
-        self.speak("Enter 1 for Admin Panel,\n 2 for Customer Panel,\n  or 3 to Exit.")
+        self.speak("Enter 1 for Admin Panel, 2 for Customer Panel, or 3 to Exit.")
         print()
         while True:
             try:
@@ -73,22 +50,17 @@ class BankingSystem:
                 self.speak("Invalid input. Please enter 1, 2, or 3.")
 
     def admin_login(self):
-        """Handles admin login with SQL validation."""
+        """Handles admin login."""
         print("Welcome to the Admin Panel. Please provide your credentials.")
         self.speak("Welcome to the Admin Panel. Please provide your credentials.")
         username = input("Enter admin username: ")
         password = input("Enter admin password: ")
-
-        # Fetch credentials from the database
-        self.cursor.execute("SELECT * FROM adminDetails WHERE username = ? AND password = ?", (username, password))
-        result = self.cursor.fetchone()
-
-        if result:
+        if self.admin_credentials.get(username) == password:
             print("Login successful. Welcome, Admin!")
             self.speak("Login successful. Welcome, Admin!")
         else:
-            print("Access denied! Invalid credentials.")
-            self.speak("Access denied! Invalid credentials.")
+            print("Invalid credentials. Access denied.")
+            self.speak("Invalid credentials. Access denied.")
 
     def customer_panel(self):
         """Handles customer panel operations."""
