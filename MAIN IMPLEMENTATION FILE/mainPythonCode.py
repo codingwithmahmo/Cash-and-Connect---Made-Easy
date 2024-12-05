@@ -1,3 +1,5 @@
+
+
 import os  # for creating directories Admin/Customer if it is not exists.
 from datetime import date  # for date of account creation when new customer account is created.
 import tkinter as tk
@@ -7,11 +9,11 @@ from tkinter import *
 # Backend python functions code starts :
 def is_valid(customer_account_number):
     try:
-        customer_database = open("database/Customer/customerDatabase.txt")
+        customer_database = open("MAIN IMPLEMENTATION FILE/database/Customer/customerDatabase.txt")
     except FileNotFoundError:
-        os.makedirs("database/Customer/customerDatabase.txt", exist_ok=True)
+        os.makedirs("MAIN IMPLEMENTATION FILE/database/Customer/customerDatabase.txt", exist_ok=True)
         print("# Customer database doesn't exists!\n# New Customer database created automatically.")
-        customer_database = open("database/Customer/customerDatabase.txt", "a")
+        customer_database = open("MAIN IMPLEMENTATION FILE/database/Customer/customerDatabase.txt", "a")
     else:  # if customer account  number is already allocated then this will return false. otherwise true.
         if check_credentials(customer_account_number, "DO_NOT_CHECK", 2, True):
             return False
@@ -46,7 +48,7 @@ def check_date(date):
 
 
 def is_valid_mobile(mobile_number):
-    if mobile_number._len_() == 10 and mobile_number.isnumeric():
+    if mobile_number.__len__() == 10 and mobile_number.isnumeric():
         return True
     else:
         return False
@@ -59,22 +61,22 @@ def append_data(database_path, data):
 
 def display_account_summary(identity, choice):  # choice 1 for full summary; choice 2 for only account balance.
     flag = 0
-    customer_database = open("database/Customer/customerDatabase.txt")
+    customer_database = open("MAIN IMPLEMENTATION FILE/database/Customer/customerDatabase.txt")
     output_message = ""
     for line in customer_database:
         if identity == line.replace("\n", ""):
             if choice == 1:
                 output_message += "Account number : " + line.replace("\n", "") + "\n"
-                customer_database._next_()  # skipping pin
-                output_message += "Current balance : " + customer_database._next_().replace("\n", "") + "\n"
-                output_message += "Date of account creation : " + customer_database._next_().replace("\n", "") + "\n"
-                output_message += "Name of account holder : " + customer_database._next_().replace("\n", "") + "\n"
-                output_message += "Type of account : " + customer_database._next_().replace("\n", "") + "\n"
-                output_message += "Date of Birth : " + customer_database._next_().replace("\n", "") + "\n"
-                output_message += "Mobile number : " + customer_database._next_().replace("\n", "") + "\n"
-                output_message += "Gender : " + customer_database._next_().replace("\n", "") + "\n"
-                output_message += "Nationality : " + customer_database._next_().replace("\n", "") + "\n"
-                output_message += "KYC : " + customer_database._next_().replace("\n", "") + "\n"
+                customer_database.__next__()  # skipping pin
+                output_message += "Current balance : " + customer_database.__next__().replace("\n", "") + "\n"
+                output_message += "Date of account creation : " + customer_database.__next__().replace("\n", "") + "\n"
+                output_message += "Name of account holder : " + customer_database.__next__().replace("\n", "") + "\n"
+                output_message += "Type of account : " + customer_database.__next__().replace("\n", "") + "\n"
+                output_message += "Date of Birth : " + customer_database.__next__().replace("\n", "") + "\n"
+                output_message += "Mobile number : " + customer_database.__next__().replace("\n", "") + "\n"
+                output_message += "Gender : " + customer_database.__next__().replace("\n", "") + "\n"
+                output_message += "Nationality : " + customer_database.__next__().replace("\n", "") + "\n"
+                output_message += "KYC : " + customer_database.__next__().replace("\n", "") + "\n"
             else:
                 customer_database.readline()  # skipped pin
                 output_message += "Current balance : " + customer_database.readline().replace("\n", "") + "\n"
@@ -94,7 +96,7 @@ def display_account_summary(identity, choice):  # choice 1 for full summary; cho
 
 
 def delete_customer_account(identity, choice):  # choice 1 for admin, choice 2 for customer
-    customer_database = open("database/Customer/customerDatabase.txt")
+    customer_database = open("MAIN IMPLEMENTATION FILE/database/Customer/customerDatabase.txt")
     data_collector = ""
     flag = 0
     for line in customer_database:
@@ -106,7 +108,7 @@ def delete_customer_account(identity, choice):  # choice 1 for admin, choice 2 f
             data_collector += line
             for index in range(11):
                 data_collector += customer_database.readline()
-    customer_database = open("database/Customer/customerDatabase.txt", "w")
+    customer_database = open("MAIN IMPLEMENTATION FILE/database/Customer/customerDatabase.txt", "w")
     customer_database.write(data_collector)
     if flag == 1:
         output_message = "Account with account no." + str(identity) + " closed successfully!"
@@ -121,10 +123,10 @@ def delete_customer_account(identity, choice):  # choice 1 for admin, choice 2 f
 
 
 def create_admin_account(identity, password):
-    admin_database = open("database/Admin/adminDatabase.txt", "a")
+    admin_database = open("MAIN IMPLEMENTATION FILE/database/Admin/adminDatabase.txt", "a")
     admin_id = identity
     admin_password = password
-    append_data("database/Admin/adminDatabase.txt", admin_id + "\n" + admin_password + "\n" + "*\n")
+    append_data("MAIN IMPLEMENTATION FILE/database/Admin/adminDatabase.txt", admin_id + "\n" + admin_password + "\n" + "*\n")
     output_message = "Admin account created successfully !"
     adminMenu.printMessage_outside(output_message)
     print(output_message)
@@ -132,7 +134,7 @@ def create_admin_account(identity, password):
 
 
 def delete_admin_account(identity):
-    admin_database = open("database/Admin/adminDatabase.txt")
+    admin_database = open("MAIN IMPLEMENTATION FILE/database/Admin/adminDatabase.txt")
     data_collector = ""
     flag = 0
     for line in admin_database:
@@ -144,7 +146,7 @@ def delete_admin_account(identity):
             data_collector += line
             for index in range(2):
                 data_collector += admin_database.readline()
-    admin_database = open("database/Admin/adminDatabase.txt", "w")
+    admin_database = open("MAIN IMPLEMENTATION FILE/database/Admin/adminDatabase.txt", "w")
     admin_database.write(data_collector)
     if flag == 1:
         output_message = "Account with account id " + identity + " closed successfully!"
@@ -157,7 +159,7 @@ def delete_admin_account(identity):
 
 
 def change_PIN(identity, new_PIN):
-    customer_database = open("database/Customer/customerDatabase.txt")
+    customer_database = open("MAIN IMPLEMENTATION FILE/database/Customer/customerDatabase.txt")
     data_collector = ""
     for line in customer_database:
         if identity == line.replace("\n", ""):
@@ -171,7 +173,7 @@ def change_PIN(identity, new_PIN):
             for index in range(11):
                 data_collector += customer_database.readline()
     customer_database.close()
-    customer_database = open("database/Customer/customerDatabase.txt", "w")
+    customer_database = open("MAIN IMPLEMENTATION FILE/database/Customer/customerDatabase.txt", "w")
     customer_database.write(data_collector)
 
     output_message = "PIN changed successfully."
@@ -180,7 +182,7 @@ def change_PIN(identity, new_PIN):
 
 
 def transaction(identity, amount, choice):  # choice 1 for deposit; choice 2 for withdraw
-    customer_database = open("database/Customer/customerDatabase.txt")
+    customer_database = open("MAIN IMPLEMENTATION FILE/database/Customer/customerDatabase.txt")
     data_collector = ""
     balance = 0
     for line in customer_database:
@@ -204,7 +206,7 @@ def transaction(identity, amount, choice):  # choice 1 for deposit; choice 2 for
                 data_collector += customer_database.readline()
 
     customer_database.close()
-    customer_database = open("database/Customer/customerDatabase.txt", "w")
+    customer_database = open("MAIN IMPLEMENTATION FILE/database/Customer/customerDatabase.txt", "w")
     customer_database.write(data_collector)
     return balance
 
@@ -227,7 +229,7 @@ def check_credentials(identity, password, choice,
         is_credentials_correct = False
         for line in database:
             id_fetched = line.replace("\n", "")
-            password_fetched = database._next_().replace("\n", "")
+            password_fetched = database.__next__().replace("\n", "")
             if id_fetched == identity:
                 if ((password == "DO_NOT_CHECK_ADMIN" and choice == 1 and admin_access == False) or (
                         password == "DO_NOT_CHECK" and choice == 2 and admin_access == True) or password_fetched == password):
@@ -235,7 +237,7 @@ def check_credentials(identity, password, choice,
                     database.close()
                     return True
             if choice == 1:  # skips unnecessary lines in admin database.
-                database._next_()  # skipping line
+                database.__next__()  # skipping line
             else:  # skips unnecessary lines in customer database.
                 for index in range(10):
                     fetched_line = database.readline()
@@ -256,14 +258,14 @@ def check_credentials(identity, password, choice,
 
 # Tkinter GUI code starts :
 class welcomeScreen:
-    def _init_(self, window=None):
+    def __init__(self, window=None):
         self.master = window
         window.geometry("600x450+383+106")
         window.minsize(120, 1)
         window.maxsize(1370, 749)
         window.resizable(0, 0)
         window.title("Welcome to New BANK")
-        p1 = PhotoImage(file='images/bank1.png')
+        p1 = PhotoImage(file='MAIN IMPLEMENTATION FILE/images/bank1.png')
         window.iconphoto(True, p1)
         window.configure(background="#023047")
         window.configure(cursor="arrow")
@@ -304,7 +306,7 @@ class welcomeScreen:
 
 
 class Error:
-    def _init_(self, window=None):
+    def __init__(self, window=None):
         global master
         master = window
         window.geometry("411x117+485+248")
@@ -322,7 +324,7 @@ class Error:
         self.Button1.place(relx=0.779, rely=0.598, height=24, width=67)
 
         global _img0
-        _img0 = tk.PhotoImage(file="images/error_image.png")
+        _img0 = tk.PhotoImage(file="MAIN IMPLEMENTATION FILE/images/error_image.png")
         self.Label1 = tk.Label(window, background="#f2f3f4", disabledforeground="#a3a3a3", foreground="#000000",
                                image=_img0, text='''Label''')
         self.Label1.place(relx=0.024, rely=0.0, height=81, width=84)
@@ -338,7 +340,7 @@ class Error:
 
 
 class adminLogin:
-    def _init_(self, window=None):
+    def __init__(self, window=None):
         self.master = window
         window.geometry("743x494+338+92")
         window.minsize(120, 1)
@@ -361,7 +363,7 @@ class adminLogin:
         Label2 = tk.Label(Canvas1, background="#ffffff", disabledforeground="#a3a3a3", foreground="#000000")
         Label2.place(relx=0.067, rely=0.283, height=181, width=233)
         global _img0
-        _img0 = tk.PhotoImage(file="images/adminLogin1.png")
+        _img0 = tk.PhotoImage(file="MAIN IMPLEMENTATION FILE/images/adminLogin1.png")
         Label2.configure(image=_img0)
 
         self.Entry1 = tk.Entry(Canvas1, background="#e2e2e2", borderwidth="2", disabledforeground="#a3a3a3",
@@ -378,19 +380,19 @@ class adminLogin:
         self.Label3 = tk.Label(Canvas1, background="#ffffff", disabledforeground="#a3a3a3", foreground="#000000")
         self.Label3.place(relx=0.556, rely=0.453, height=21, width=34)
         global _img1
-        _img1 = tk.PhotoImage(file="images/user1.png")
+        _img1 = tk.PhotoImage(file="MAIN IMPLEMENTATION FILE/images/user1.png")
         self.Label3.configure(image=_img1)
 
         self.Label4 = tk.Label(Canvas1, background="#ffffff", disabledforeground="#a3a3a3", foreground="#000000")
         self.Label4.place(relx=0.556, rely=0.623, height=21, width=34)
         global _img2
-        _img2 = tk.PhotoImage(file="images/lock1.png")
+        _img2 = tk.PhotoImage(file="MAIN IMPLEMENTATION FILE/images/lock1.png")
         self.Label4.configure(image=_img2)
 
         self.Label5 = tk.Label(Canvas1, background="#ffffff", disabledforeground="#a3a3a3", foreground="#000000")
         self.Label5.place(relx=0.670, rely=0.142, height=71, width=74)
         global _img3
-        _img3 = tk.PhotoImage(file="images/bank1.png")
+        _img3 = tk.PhotoImage(file="MAIN IMPLEMENTATION FILE/images/bank1.png")
         self.Label5.configure(image=_img3)
 
         self.Button = tk.Button(Canvas1, text="Login", borderwidth="0", width=10, background="#ffff00",
@@ -406,7 +408,7 @@ class adminLogin:
         self.Button_back.place(relx=0.545, rely=0.755)
 
         global admin_img
-        admin_img = tk.PhotoImage(file="images/adminLogin1.png")
+        admin_img = tk.PhotoImage(file="MAIN IMPLEMENTATION FILE/images/adminLogin1.png")
 
     def back(self):
         self.master.withdraw()
@@ -431,7 +433,7 @@ class adminLogin:
 
 
 class CustomerLogin:
-    def _init_(self, window=None):
+    def __init__(self, window=None):
         self.master = window
         window.geometry("743x494+338+92")
         window.minsize(120, 1)
@@ -454,7 +456,7 @@ class CustomerLogin:
         Label2 = tk.Label(Canvas1, background="#ffffff", disabledforeground="#a3a3a3", foreground="#000000")
         Label2.place(relx=0.067, rely=0.283, height=181, width=233)
         global _img0
-        _img0 = tk.PhotoImage(file="images/customer.png")
+        _img0 = tk.PhotoImage(file="MAIN IMPLEMENTATION FILE/images/customer.png")
         Label2.configure(image=_img0)
 
         self.Entry1 = tk.Entry(Canvas1, background="#e2e2e2", borderwidth="2", disabledforeground="#a3a3a3",
@@ -472,19 +474,19 @@ class CustomerLogin:
         self.Label3.place(relx=0.556, rely=0.453, height=21, width=34)
 
         global _img1
-        _img1 = tk.PhotoImage(file="images/user1.png")
+        _img1 = tk.PhotoImage(file="MAIN IMPLEMENTATION FILE/images/user1.png")
         self.Label3.configure(image=_img1)
 
         self.Label4 = tk.Label(Canvas1)
         self.Label4.place(relx=0.556, rely=0.623, height=21, width=34)
         global _img2
-        _img2 = tk.PhotoImage(file="images/lock1.png")
+        _img2 = tk.PhotoImage(file="MAIN IMPLEMENTATION FILE/images/lock1.png")
         self.Label4.configure(image=_img2, background="#ffffff")
 
         self.Label5 = tk.Label(Canvas1, background="#ffffff", disabledforeground="#a3a3a3", foreground="#000000")
         self.Label5.place(relx=0.670, rely=0.142, height=71, width=74)
         global _img3
-        _img3 = tk.PhotoImage(file="images/bank1.png")
+        _img3 = tk.PhotoImage(file="MAIN IMPLEMENTATION FILE/images/bank1.png")
         self.Label5.configure(image=_img3)
 
         self.Button = tk.Button(Canvas1, text="Login", borderwidth="0", width=10, background="#00254a",
@@ -500,7 +502,7 @@ class CustomerLogin:
         self.Button_back.place(relx=0.545, rely=0.755)
 
         global customer_img
-        customer_img = tk.PhotoImage(file="images/customer.png")
+        customer_img = tk.PhotoImage(file="MAIN IMPLEMENTATION FILE/images/customer.png")
 
     def back(self):
         self.master.withdraw()
@@ -525,7 +527,7 @@ class CustomerLogin:
 
 
 class adminMenu:
-    def _init_(self, window=None):
+    def __init__(self, window=None):
         self.master = window
         window.geometry("743x494+329+153")
         window.minsize(120, 1)
@@ -622,7 +624,7 @@ class adminMenu:
 
 
 class CloseAccountByAdmin:
-    def _init_(self, window=None):
+    def __init__(self, window=None):
         self.master = window
         window.geometry("411x117+498+261")
         window.minsize(120, 1)
@@ -665,7 +667,7 @@ class CloseAccountByAdmin:
 
 
 class createCustomerAccount:
-    def _init_(self, window=None):
+    def __init__(self, window=None):
         self.master = window
         window.geometry("411x403+437+152")
         window.minsize(120, 1)
@@ -842,9 +844,9 @@ class createCustomerAccount:
                     if check_date(date_of_birth):
                         if is_valid_mobile(mobile_number):
                             if gender == "Male" or gender == "Female":
-                                if nationality._len_() != 0:
-                                    if KYC_document._len_() != 0:
-                                        if PIN.isnumeric() and PIN._len_() == 4:
+                                if nationality.__len__() != 0:
+                                    if KYC_document.__len__() != 0:
+                                        if PIN.isnumeric() and PIN.__len__() == 4:
                                             if confirm_PIN == PIN:
                                                 if initial_balance.isnumeric():
                                                     output_message = "Customer account created successfully!"
@@ -900,13 +902,13 @@ class createCustomerAccount:
 
         # adding in database
         data = customer_account_number + "\n" + PIN + "\n" + initial_balance + "\n" + date_of_account_creation + "\n" + name + "\n" + account_type + "\n" + date_of_birth + "\n" + mobile_number + "\n" + gender + "\n" + nationality + "\n" + KYC_document + "\n" + "*\n"
-        append_data("database/Customer/customerDatabase.txt", data)
+        append_data("MAIN IMPLEMENTATION FILE/database/Customer/customerDatabase.txt", data)
 
         self.master.withdraw()
 
 
 class createAdmin:
-    def _init_(self, window=None):
+    def __init__(self, window=None):
         self.master = window
         window.geometry("411x150+512+237")
         window.minsize(120, 1)
@@ -973,7 +975,7 @@ class createAdmin:
 
 
 class deleteAdmin:
-    def _init_(self, window=None):
+    def __init__(self, window=None):
         self.master = window
         window.geometry("411x117+504+268")
         window.minsize(120, 1)
@@ -1029,7 +1031,7 @@ class deleteAdmin:
 
 
 class customerMenu:
-    def _init_(self, window=None):
+    def __init__(self, window=None):
         self.master = window
         window.geometry("743x494+329+153")
         window.minsize(120, 1)
@@ -1126,14 +1128,14 @@ class customerMenu:
 
 
 class depositMoney:
-    def _init_(self, window=None):
+    def __init__(self, window=None):
         self.master = window
         window.geometry("411x117+519+278")
         window.minsize(120, 1)
         window.maxsize(1370, 749)
         window.resizable(0, 0)
         window.title("Deposit money")
-        p1 = PhotoImage(file='images/deposit_icon.png')
+        p1 = PhotoImage(file='MAIN IMPLEMENTATION FILE/images/deposit_icon.png')
         window.iconphoto(True, p1)
         window.configure(borderwidth="2")
         window.configure(background="#f2f3f4")
@@ -1190,14 +1192,14 @@ class depositMoney:
 
 
 class withdrawMoney:
-    def _init_(self, window=None):
+    def __init__(self, window=None):
         self.master = window
         window.geometry("411x117+519+278")
         window.minsize(120, 1)
         window.maxsize(1370, 749)
         window.resizable(0, 0)
         window.title("Withdraw money")
-        p1 = PhotoImage(file='images/withdraw_icon.png')
+        p1 = PhotoImage(file='MAIN IMPLEMENTATION FILE/images/withdraw_icon.png')
         window.iconphoto(True, p1)
         window.configure(borderwidth="2")
         window.configure(background="#f2f3f4")
@@ -1214,3 +1216,197 @@ class withdrawMoney:
         self.Button1 = tk.Button(window, activebackground="#ececec", activeforeground="#000000", background="#004080",
                                  disabledforeground="#a3a3a3", borderwidth="0", foreground="#ffffff",
                                  highlightbackground="#000000",
+                                 highlightcolor="black", pady="0", text='''Proceed''',
+                                 command=lambda: self.submit(self.Entry1.get()))
+        self.Button1.place(relx=0.56, rely=0.598, height=24, width=67)
+
+        self.Button2 = tk.Button(window, activebackground="#ececec", activeforeground="#000000", background="#004080",
+                                 disabledforeground="#a3a3a3", borderwidth="0", font="-family {Segoe UI} -size 9",
+                                 foreground="#ffffff",
+                                 highlightbackground="#d9d9d9", highlightcolor="black", pady="0", text='''Back''',
+                                 command=self.back)
+        self.Button2.place(relx=0.268, rely=0.598, height=24, width=67)
+
+    def submit(self, amount):
+        if amount.isnumeric():
+            if 25000 >= float(amount) > 0:
+                output = transaction(customer_accNO, float(amount), 2)
+            else:
+                Error(Toplevel(self.master))
+                if float(amount) > 25000:
+                    Error.setMessage(self, message_shown="Limit exceeded!")
+                else:
+                    Error.setMessage(self, message_shown="Positive value expected!")
+                return
+        else:
+            Error(Toplevel(self.master))
+            Error.setMessage(self, message_shown="Invalid amount!")
+            return
+        if output == -1:
+            Error(Toplevel(self.master))
+            Error.setMessage(self, message_shown="Transaction failed!")
+            return
+        else:
+            output = "Amount of rupees " + str(amount) + " withdrawn successfully.\nUpdated balance : " + str(output)
+            customerMenu.printMessage_outside(output)
+            self.master.withdraw()
+
+    def back(self):
+        self.master.withdraw()
+
+
+class changePIN:
+    def __init__(self, window=None):
+        self.master = window
+        window.geometry("411x111+505+223")
+        window.minsize(120, 1)
+        window.maxsize(1370, 749)
+        window.resizable(0, 0)
+        window.title("Change PIN")
+        window.configure(background="#f2f3f4")
+
+        self.Label1 = tk.Label(window, background="#f2f3f4", disabledforeground="#a3a3a3", foreground="#000000",
+                               text='''Enter new PIN:''')
+        self.Label1.place(relx=0.243, rely=0.144, height=21, width=93)
+
+        self.Label2 = tk.Label(window, background="#f2f3f4", disabledforeground="#a3a3a3", foreground="#000000",
+                               text='''Confirm PIN:''')
+        self.Label2.place(relx=0.268, rely=0.414, height=21, width=82)
+
+        self.Entry1 = tk.Entry(window, show="*", background="#cae4ff", disabledforeground="#a3a3a3", font="TkFixedFont",
+                               foreground="#000000", insertbackground="black")
+        self.Entry1.place(relx=0.528, rely=0.144, height=20, relwidth=0.229)
+
+        self.Entry2 = tk.Entry(window, show="*", background="#cae4ff", disabledforeground="#a3a3a3", font="TkFixedFont",
+                               foreground="#000000", insertbackground="black")
+        self.Entry2.place(relx=0.528, rely=0.414, height=20, relwidth=0.229)
+
+        self.Button1 = tk.Button(window, activebackground="#ececec", activeforeground="#000000", background="#004080",
+                                 disabledforeground="#a3a3a3", foreground="#ffffff", borderwidth="0",
+                                 highlightbackground="#d9d9d9",
+                                 highlightcolor="black", pady="0", text='''Proceed''',
+                                 command=lambda: self.submit(self.Entry1.get(), self.Entry2.get()))
+        self.Button1.place(relx=0.614, rely=0.721, height=24, width=67)
+
+        self.Button2 = tk.Button(window, activebackground="#ececec", activeforeground="#000000", background="#004080",
+                                 disabledforeground="#a3a3a3", foreground="#ffffff", borderwidth="0",
+                                 highlightbackground="#d9d9d9",
+                                 highlightcolor="black", pady="0", text="Back", command=self.back)
+        self.Button2.place(relx=0.214, rely=0.721, height=24, width=67)
+
+    def submit(self, new_PIN, confirm_new_PIN):
+        if new_PIN == confirm_new_PIN and str(new_PIN).__len__() == 4 and new_PIN.isnumeric():
+            change_PIN(customer_accNO, new_PIN)
+            self.master.withdraw()
+        else:
+            Error(Toplevel(self.master))
+            if new_PIN != confirm_new_PIN:
+                Error.setMessage(self, message_shown="PIN mismatch!")
+            elif str(new_PIN).__len__() != 4:
+                Error.setMessage(self, message_shown="PIN length must be 4!")
+            else:
+                Error.setMessage(self, message_shown="Invalid PIN!")
+            return
+
+    def back(self):
+        self.master.withdraw()
+
+
+class closeAccount:
+    def __init__(self, window=None):
+        self.master = window
+        window.geometry("411x117+498+261")
+        window.minsize(120, 1)
+        window.maxsize(1370, 749)
+        window.resizable(0, 0)
+        window.title("Close Account")
+        window.configure(background="#f2f3f4")
+
+        self.Label1 = tk.Label(window, background="#f2f3f4", disabledforeground="#a3a3a3", foreground="#000000",
+                               text='''Enter your PIN:''')
+        self.Label1.place(relx=0.268, rely=0.256, height=21, width=94)
+
+        self.Entry1 = tk.Entry(window, show="*", background="#cae4ff", disabledforeground="#a3a3a3", font="TkFixedFont",
+                               foreground="#000000", insertbackground="black")
+        self.Entry1.place(relx=0.511, rely=0.256, height=20, relwidth=0.229)
+
+        self.Button1 = tk.Button(window, activebackground="#ececec", activeforeground="#000000", background="#004080",
+                                 disabledforeground="#a3a3a3", foreground="#ffffff", borderwidth="0",
+                                 highlightbackground="#d9d9d9",
+                                 highlightcolor="black", pady="0", text='''Proceed''',
+                                 command=lambda: self.submit(self.Entry1.get()))
+        self.Button1.place(relx=0.614, rely=0.712, height=24, width=67)
+
+        self.Button2 = tk.Button(window, activebackground="#ececec", activeforeground="#000000", background="#004080",
+                                 disabledforeground="#a3a3a3", foreground="#ffffff", borderwidth="0",
+                                 highlightbackground="#d9d9d9",
+                                 highlightcolor="black", pady="0", text="Back", command=self.back)
+        self.Button2.place(relx=0.214, rely=0.712, height=24, width=67)
+
+    def submit(self, PIN):
+        print("Submit pressed.")
+        print(customer_accNO, PIN)
+        if check_credentials(customer_accNO, PIN, 2, False):
+            print("Correct accepted.")
+            delete_customer_account(customer_accNO, 2)
+            self.master.withdraw()
+            CustomerLogin(Toplevel(self.master))
+        else:
+            print("Incorrect accepted.")
+            Error(Toplevel(self.master))
+            Error.setMessage(self, message_shown="Invalid PIN!")
+
+    def back(self):
+        self.master.withdraw()
+        customerMenu(Toplevel(self.master))
+
+
+class checkAccountSummary:
+    def __init__(self, window=None):
+        self.master = window
+        window.geometry("411x117+498+261")
+        window.minsize(120, 1)
+        window.maxsize(1370, 749)
+        window.resizable(0, 0)
+        window.title("Check Account Summary")
+        window.configure(background="#f2f3f4")
+
+        self.Label1 = tk.Label(window, background="#f2f3f4", disabledforeground="#a3a3a3", foreground="#000000",
+                               text='''Enter ID :''')
+        self.Label1.place(relx=0.268, rely=0.256, height=21, width=94)
+
+        self.Entry1 = tk.Entry(window, background="#cae4ff", disabledforeground="#a3a3a3", font="TkFixedFont",
+                               foreground="#000000", insertbackground="black")
+        self.Entry1.place(relx=0.511, rely=0.256, height=20, relwidth=0.229)
+
+        self.Button1 = tk.Button(window, activebackground="#ececec", activeforeground="#000000", background="#004080",
+                                 disabledforeground="#a3a3a3", foreground="#ffffff", borderwidth="0",
+                                 highlightbackground="#d9d9d9",
+                                 highlightcolor="black", pady="0", text='''Proceed''',
+                                 command=lambda: self.submit(self.Entry1.get()))
+        self.Button1.place(relx=0.614, rely=0.712, height=24, width=67)
+
+        self.Button2 = tk.Button(window, activebackground="#ececec", activeforeground="#000000", background="#004080",
+                                 disabledforeground="#a3a3a3", foreground="#ffffff", borderwidth="0",
+                                 highlightbackground="#d9d9d9",
+                                 highlightcolor="black", pady="0", text="Back", command=self.back)
+        self.Button2.place(relx=0.214, rely=0.712, height=24, width=67)
+
+    def back(self):
+        self.master.withdraw()
+
+    def submit(self, identity):
+        if not is_valid(identity):
+            adminMenu.printAccountSummary(identity)
+        else:
+            Error(Toplevel(self.master))
+            Error.setMessage(self, message_shown="Id doesn't exist!")
+            return
+        self.master.withdraw()
+
+
+root = tk.Tk()
+top = welcomeScreen(root)
+root.mainloop()
+
+# Tkinter GUI code ends.
