@@ -1,0 +1,47 @@
+[
+    {
+        "username": "john_doe",
+        "password": "password123",
+        "account_number": 101,
+        "cnic": "12345-67890",
+        "contact": "3001234567",
+        "balance": 1000,
+        "account_type": "savings"
+    },
+    {
+        "username": "jane_doe",
+        "password": "password456",
+        "account_number": 102,
+        "cnic": "12345-67891",
+        "contact": "03001234568",
+        "balance": 1500,
+        "account_type": "current"
+    },
+    {
+        "username": "sam_smith",
+        "password": "password789",
+        "account_number": 103,
+        "cnic": "12345-67892",
+        "contact": "03001234569",
+        "balance": 2000,
+        "account_type": "savings"
+    },
+    {
+        "username": "ali_zeb",
+        "password": "ali123",
+        "account_number": 104,
+        "cnic": "123456-78913-0",
+        "contact": "03009133030",
+        "balance": 20000,
+        "account_type": "current"
+    },
+    {
+        "username": "mahmood_khan",
+        "password": "mahmood123",
+        "account_number": "123456789",
+        "cnic": "123456-789-1",
+        "contact": "03379730904",
+        "balance": 3000.0,
+        "account_type": "current"
+    }
+]
